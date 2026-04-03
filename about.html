@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Skills</title>
+
+    <style>
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            text-align: center;
+            padding: 50px;
+            transition: 0.3s;
+        }
+
+        /* DARK MODE */
+        body.dark {
+            background: black;
+            color: white;
+        }
+
+        /* LIGHT MODE */
+        body.light {
+            background: #f5f5f5;
+            color: black;
+        }
+
+        h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        input {
+            padding: 10px;
+            width: 70%;
+            border-radius: 20px;
+            border: 1px solid #555;
+            background: transparent;
+            color: inherit;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin: 10px;
+            border-radius: 20px;
+            border: 1px solid #555;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: gray;
+            color: white;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        li {
+            background: rgba(128,128,128,0.15);
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .delete {
+            color: red;
+            cursor: pointer;
+        }
+
+        .theme-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(10px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+
+</head>
+
+<body class="dark">
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-btn" onclick="toggleTheme()">🌙 / ☀️</button>
+
+    <h1>My Skills 🚀</h1>
+
+    <div class="container">
+        <input type="text" id="skillInput" placeholder="Enter your skill..." />
+        
+        <br>
+
+        <button onclick="addSkill()">Add Skill</button>
+        <button onclick="removeLast()">Remove Last</button>
+
+        <ul id="skillList"></ul>
+    </div>
+
+    <script>
+        function addSkill() {
+            let input = document.getElementById("skillInput");
+            let value = input.value.trim();
+
+            if (value === "") {
+                alert("Enter a skill first!");
+                return;
+            }
+
+            let ul = document.getElementById("skillList");
+            let li = document.createElement("li");
+
+            li.innerHTML = `
+                ${value}
+                <span class="delete" onclick="this.parentElement.remove()">❌</span>
+            `;
+
+            ul.appendChild(li);
+            input.value = "";
+        }
+
+        function removeLast() {
+            let ul = document.getElementById("skillList");
+
+            if (ul.lastChild) {
+                ul.removeChild(ul.lastChild);
+            }
+        }
+
+        // 🌙☀️ Theme Toggle
+        function toggleTheme() {
+            let body = document.body;
+
+            if (body.classList.contains("dark")) {
+                body.classList.remove("dark");
+                body.classList.add("light");
+            } else {
+                body.classList.remove("light");
+                body.classList.add("dark");
+            }
+        }
+    </script>
+
+</body>
+</html>
